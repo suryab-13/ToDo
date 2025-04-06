@@ -17,7 +17,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker build --build-arg BUILD_CONFIGURATION=${BUILD_CONFIGURATION} -t ${IMAGE_NAME}:${DOCKER_TAG} ."
+                    sh "docker build --build-arg BUILD_CONFIGURATION=${BUILD_CONFIGURATION} -t ${IMAGE_NAME}:${DOCKER_TAG} ./ToDo"
                 }
             }
         }
