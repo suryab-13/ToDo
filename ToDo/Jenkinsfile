@@ -8,6 +8,7 @@ pipeline {
         CONTAINER_NAME = 'todo-container'
         HOST_PORT = '5000'
         CONTAINER_PORT = '8080'
+        APP_DIR = 'ToDo' // 👈 New: Set working directory
     }
 
     stages {
@@ -26,7 +27,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker build --build-arg BUILD_CONFIGURATION=${BUILD_CONFIGURATION} -t ${IMAGE_NAME}:${DOCKER_TAG} ."
+                    sh "docker build --build-arg BUILD_CONFIGURATION=${BUILD_CONFIGURATION} -t ${IMAGE_NAME}:${DOCKER_TAG} ${APP_DIR}"
                 }
             }
         }
@@ -40,7 +41,6 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    // Stop & remove old container if running
                     sh """
                     docker rm -f ${CONTAINER_NAME} || true
                     docker run -d --name ${CONTAINER_NAME} -p ${HOST_PORT}:${CONTAINER_PORT} ${IMAGE_NAME}:${DOCKER_TAG}
