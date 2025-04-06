@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/yourusername/your-repo.git' // Replace with your actual repo
+                git 'https://github.com/suryab-13/ToDo.git' // Replace with your actual repo
             }
         }
 
