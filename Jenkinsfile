@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/suryab-13/ToDo.git'
+                git branch: 'main', url: 'https://github.com/suryab-13/ToDo.git'
             }
         }
 
