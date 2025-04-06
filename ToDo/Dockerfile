@@ -9,17 +9,18 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
 # Copy only .csproj first to take advantage of Docker caching
-COPY ["ToDo.csproj", "./"]
-RUN dotnet restore "./ToDo.csproj"
+COPY ToDo/ToDo.csproj ./ToDo/
+WORKDIR /src/ToDo
+RUN dotnet restore "ToDo.csproj"
 
-# Copy the rest of the code
-COPY . .
+# Copy the rest of the source code
+COPY ToDo/. ./
 
 # Build the project
-RUN dotnet build "./ToDo.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "ToDo.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # Publish the project
-RUN dotnet publish "./ToDo.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "ToDo.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # Final image
 FROM base AS final
