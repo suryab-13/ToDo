@@ -54,7 +54,7 @@ pipeline {
     success {
         script {
             def publicIp = sh(script: "curl -s http://checkip.amazonaws.com", returnStdout: true).trim()
-            echo "✅ App is running at: http://${publicIp}:${HOST_PORT}/swagger/index.html"
+            echo "App is running at: http://${publicIp}:${HOST_PORT}/swagger/index.html"
         }
     }
     always {
